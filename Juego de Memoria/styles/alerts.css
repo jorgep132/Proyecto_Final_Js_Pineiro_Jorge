@@ -1,0 +1,102 @@
+/* Estilos para sweetalerts (swal) */
+
+/* Bloque de Swal de logueo (login) */
+.swal-login {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.swal-login label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #333;
+}
+
+
+.swal-login p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.swal-login a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.swal-login a:hover {
+    text-decoration: underline;
+}
+
+.swal-login button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.swal-login button:hover {
+    background-color: #0056b3;
+}
+
+.swal2-popup {
+    border-radius: 25px;
+}
+
+/* Bloque Swal de registro */
+.swal-registro {
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.swal-registro label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.swal-registro input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.swal-registro button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.swal-registro button:hover {
+    background-color: #45a049;
+}
+
+.swal-registro p {
+    margin-top: 12px;
+}
+
+
+/* Estilo para toastify */
+.toastify.toast-login {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: white;
+}

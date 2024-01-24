@@ -1,0 +1,48 @@
+/* Estilos para las cartas */
+.carta {
+    width: 100px;
+    height: 140px;
+    margin: 1rem;
+    background-size: cover;
+    position: relative;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    border: 2px solid #FFF59D;
+    border-radius: 4px;
+}
+
+/* Estilo para que la carta activa, es decir, la que seleccionamos, se de vuelta*/
+.carta.activa {
+    transform: rotateY(180deg);
+}
+
+/* Estilo para el Div de cartas */
+.carta div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    position: absolute;
+    backface-visibility: hidden;
+    pointer-events: none;
+}
+
+/* Estilo de la cara de las cartas */
+.carta .cara{
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotateY(180deg);
+    border-radius: 4px;
+    
+}
+
+/* Estilo del dorso de las cartas */
+.carta .dorso{ 
+    background-size: cover;
+    border-radius: 4px;
+}
+

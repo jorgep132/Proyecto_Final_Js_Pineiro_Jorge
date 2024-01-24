@@ -1,0 +1,70 @@
+/* Estilos para el body */
+body {
+    margin: 0;
+    background-image: url('../assets/Gif/background_page.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+}
+
+/* Wrapper del juego */
+#wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    position: relative;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+/* Se cambia el tamaño para la dificultad facil, ya que tiene 12 cartas. */
+#wrapper.facil {
+    height: 100vh;
+
+}
+
+/* Se cambia el tamaño para la dificultad facil, ya que tiene 16 cartas. */
+#wrapper.intermedio {
+    height: 110vh;
+}
+
+/* Se cambia el tamaño para la dificultad facil, ya que tiene 20 cartas. */
+#wrapper.dificil {
+    height: 130vh;
+
+}
+
+/* Juego principal */
+#juego {
+    max-width: 600px; 
+    margin: 0 auto;  
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: repeat(4, 0.5fr);
+    grid-gap: 1rem; 
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Se cambian la cantidad de columnas y filas en la maxima dificultad, ya que tiene 20 cartas */
+#juego.dificil {
+    max-width: 600px; 
+    margin: 0 auto;  
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+    grid-template-rows: repeat(4, 1fr);
+    grid-gap: 1rem; 
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Estilo para resultado */
+.resultados {
+    color: red;
+    font-size: 26px;
+}
+
