@@ -1,9 +1,7 @@
 /* Estilos para el body */
 body {
     margin: 0;
-    background-image: url('../assets/Gif/background_page.png');
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: rgb(33, 2, 61) !important; /* Set background color to black */
     overflow-y: auto;
 }
 
@@ -64,7 +62,12 @@ body {
 
 /* Estilo para resultado */
 .resultados {
-    color: red;
+    color: rgb(255, 255, 255);
     font-size: 26px;
+}
+
+#partidasRegistro {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
 }
 

@@ -13,7 +13,8 @@ let botonLogout = document.querySelector('#botonLogout')
 botonLogout.style.display = 'none' // El boton no esta a menos que tengamos la sesion iniciada.
 
 // Boton para cerrar sesion
-botonLogout.addEventListener('click', ()=>{ // Al cerrar sesión se recarga y aparece el boton de inicio de sesion
+botonLogout.addEventListener('click', ()=>{
+    event.preventDefault() // Al cerrar sesión se recarga y aparece el boton de inicio de sesion
     localStorage.removeItem('username')
     console.log(localStorage)
     location.reload()
@@ -22,7 +23,8 @@ botonLogout.addEventListener('click', ()=>{ // Al cerrar sesión se recarga y ap
 
 // Funcion principal para loguearse
 function login (){
-    botonLogin.addEventListener('click', () => { // El clickear sobre el boton iniciar sesion disparamos el evento de logueo
+    botonLogin.addEventListener('click', () => {
+        event.preventDefault() // El clickear sobre el boton iniciar sesion disparamos el evento de logueo
         Swal.fire({
             title: 'Iniciar Sesión',
             html: `
@@ -46,6 +48,7 @@ function login (){
                     }, 600) // 
                 } else {
                     mensajeNoRegistrado() // En caso de ingresar datos erroneos, o inexistentes, se advierte con un popup.
+                    return false 
                 }
             }
         })
@@ -62,13 +65,12 @@ function login (){
 document.addEventListener('DOMContentLoaded', () => { // Si el usuario esta logueado, se vera el nombre de usuario y desaparece el boton de iniciar sesion, a su vez, aparece el boton de cerrar sesion.
     if (storedUsername) {
         // Si hay información de usuario en el localStorage, mostrar la información del usuario
-        const textoUsuario = document.createElement('span')
-        textoUsuario.classList.add('textoUsuario')
-        textoUsuario.textContent = `Bienvenido/a: ${storedUsername.charAt(0).toUpperCase() + storedUsername.slice(1)}`
+        const textoUsuario = document.querySelector('#nombreUsuario')
+        textoUsuario.innerText = `Bienvenido/a: ${storedUsername.charAt(0).toUpperCase() + storedUsername.slice(1)}`
         botonLogout.style.display = 'block'
 
         // Reemplazar el botón con el nuevo elemento de texto
-        botonLogin.parentNode.replaceChild(textoUsuario, botonLogin)
+        botonLogin.style.display = 'none'
     } 
       
 })

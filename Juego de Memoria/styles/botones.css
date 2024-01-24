@@ -1,4 +1,4 @@
-/* Estilo para el botón de inicio de sesión */
+/* Estilo para el botón de inicio de sesión y cierre de sesión */
 .botonLogin {
     background-color: #3498db;
     color: #fff;
@@ -9,21 +9,6 @@
     font-size: 16px;
 }
 
-/* Estilo para el botón de cerrar sesión */
-.botonLogout {
-    background-color: #e74c3c;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 400px;
-    margin-top: -10px;
-    margin-bottom: 4px;
-    padding-left: 40px;
-    text-align: center;
-}
 
 /* Estilo para los botones de temática */
 .botonTematica {
@@ -37,15 +22,6 @@
     margin-left: 5px;
 }
 
-/* Añadir estilos específicos para cada botón de temática */
-#yugi {
-    background-color: #ffcc00; /* Amarillo para temática Yu-Gi-Oh! */
-}
-
-#gatitos {
-    background-color: #ff66b2; /* Rosa para temática Gatitos */
-}
-
 /* Estilo para el nombre del usuario una vez logueado */
 .textoUsuario {
     color: red;
@@ -56,7 +32,7 @@
 }
 
 /* Estilo para el boton de info */
-.info-boton {
+/* .info-boton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +43,7 @@
   border-radius: 50%;
   font-size: 18px;
   cursor: pointer;
-}
+} */
 
 .info-icon::before {
   content: "?";

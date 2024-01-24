@@ -67,7 +67,7 @@ function mensajeNoRegistrado(){
 function mensajeRegistrado(username){
     Toastify({
         text: `Usuario ${username} registrado con éxito.`,
-        duration: 1800,
+        duration: 1000,
         style: {
             background: '#663399',
           },
@@ -79,7 +79,7 @@ function mensajeRegistrado(username){
 function mensajeTematicaRepetida (){
     Toastify({
         text: "La tematica ya se encuentra en uso.",
-        duration: 1700
+        duration: 600
         }).showToast();
 }
 
@@ -87,7 +87,7 @@ function mensajeTematicaRepetida (){
 function mensajeDebeIniciarSesion (){
     Toastify({
         text: "Debe iniciar sesion",
-        duration: 800
+        duration: 440
         }).showToast();
 }
 
@@ -95,7 +95,7 @@ function mensajeDebeIniciarSesion (){
 function mensajeDebElegirTematica (){
     Toastify({
         text: "Se debe elegir una tematica primero",
-        duration: 800
+        duration: 440
         }).showToast();
 }
 

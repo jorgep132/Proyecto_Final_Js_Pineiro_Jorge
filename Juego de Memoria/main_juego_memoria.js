@@ -9,12 +9,16 @@ let carElegidas = []
 let carUsadas = []
 let movActual = 0
 let errores = 0
-let partidasJugadas = 0
+let partidasGanadas = 0
+let partidasPerdidas = 0
 let tematica = null
 let tematicaDificultad = null
 let tematicaSeleccionada = null
 let dificultad = 1
 let resultadoError = document.querySelector('.resultados')
+
+const partidasRegistro = document.querySelector('#partidasRegistro')
+
 
 // Template de las cartas
 function crearTemplate(dorso) {
@@ -30,10 +34,18 @@ const botonYugi = document.querySelector('#yugi')
 const botonGatitos = document.querySelector('#gatitos')
 const botonDificultad = document.querySelector('#dificultad')
 const botonInfo = document.querySelector('#info')
+const botonPokeadivinanza = document.querySelector('#pokeadivinanza')
+
+botonPokeadivinanza.addEventListener('click', ()=>{
+    event.preventDefault()
+    window.location.href = '../Juego de Pokemon/index_juego_pokemon.html'
+    
+})
 
 // Bloque de evento de Botones
 // Evento de botonYugi para elegir la tematica de Yu-gi-oh! al hacer click.
 botonYugi.addEventListener('click', ()=>{
+    event.preventDefault()
     if (!usuarioAutenticado()){ // Verifica que el usuario tenga la sesion iniciada.
        mensajeDebeIniciarSesion()
        
@@ -58,6 +70,7 @@ botonYugi.addEventListener('click', ()=>{
 
 // Evento de botonGatitos para elegir la tematica de Gatitos al hacer click.
 botonGatitos.addEventListener('click', ()=>{
+    event.preventDefault()
     if (!usuarioAutenticado()){ // Verifica que el usuario tenga la sesion iniciada.
         mensajeDebeIniciarSesion()
     } else if (tematica === cartas_gatitos){ // Si esta logueado, continuara el flujo asignando la tematica elegida.
@@ -81,6 +94,7 @@ botonGatitos.addEventListener('click', ()=>{
 
 // Evento de botonDificultad, para elegir entre los 3 niveles de dificultad.
 botonDificultad.addEventListener('click', ()=>{
+    event.preventDefault()
     if (!usuarioAutenticado()){ // Tiene que estar logueado para elegir dificultad.
         mensajeDebeIniciarSesion()
     } else if (tematica == null){ // Si no hay tematica elegida, no se puede elegir la dificultad.
@@ -112,12 +126,13 @@ botonDificultad.addEventListener('click', ()=>{
 
 // Evento de botonInfo, para leer informacion del juego, tales como una demo en video y un leve instructivo.
 botonInfo.addEventListener('click', ()=>{
+    event.preventDefault()
     Swal.fire({
         title: "Reglas",
         html: `<p>El juego consiste en encontrar los pares de cartas, cada vez que nos equivoquemos, sumará uno a la cuenta de fallos. Una vez encontrado todo los pares, ganarás la partida.</p>
-        <p>Nivel 1: Fácil, 12 cartas</p>
-        <p>Nivel 2: Intermedio, 16 cartas.</p>
-        <p>Nivel 3: Dificil, 20 cartas</p>`, // Instructivo de las reglas, objetivo del juego y diferentes niveles de dificultad.
+        <p>Nivel 1: Fácil, 12 cartas y 10 intentos.</p>
+        <p>Nivel 2: Intermedio, 16 cartas y 6 intentos.</p>
+        <p>Nivel 3: Dificil, 20 cartas y 8 intentos.</p>`, // Instructivo de las reglas, objetivo del juego y diferentes niveles de dificultad.
         imageUrl: "assets/Gif/reglas.gif", // Video ilustrativo de como se juega.
         imageAlt: "Custom GIF"
       })
@@ -166,6 +181,7 @@ function activar(e) {
 
                    setTimeout(() => { 
                         if (todasCartasVolteadas()) { // Si estan todas las cartas boca arriba, se gano la partida.
+                            partidasGanadas ++  
                             mensajeVictoria(reiniciarJuego) // Se llama a la funcion para mostrar el mensaje al ganar, y para reiniciar la partida si el usuario quiere.
                         }   
                     }, 300)
@@ -200,6 +216,10 @@ function mezclar() {
     } else {
         mezclar(tematicaDificultad) 
     }
+
+    partidasRegistro.innerText = `Partidas totales: ${partidasGanadas + partidasPerdidas}
+    Partidas ganadas: ${partidasGanadas}
+    Partidas perdidas: ${partidasPerdidas}`
 }
 
 // Funcion para determinar si estan todas boca arriba
@@ -214,7 +234,6 @@ function reiniciarJuego() {
     document.querySelector('#juego').innerHTML = ''
 
     // Se reinician las variables del juego
-    partidasJugadas++
     cartas = []
     carElegidas = []
     carUsadas = []
@@ -229,7 +248,7 @@ function reiniciarJuego() {
 // Funcion para determinar el efecto de la dificultad sobre el juego.
 function nivelDificultad(dificultad){ 
     if (dificultad == 1){ // En la primer dificultad tendremos intentos ilimitados y 12 cartas en el tablero.
-        resultadoError.innerHTML = `Dificultad: Fácil. Fallos: ${errores}`
+        resultadoError.innerHTML = `Dificultad: Fácil. Fallos: ${errores}/10`
         totalCartas = 12
         tematicaDificultad = tematica.slice(0, 6)
         juego.className = ''
@@ -254,10 +273,16 @@ function nivelDificultad(dificultad){
 
 // Funcion para determinar cuantos intentos por dificultad tenemos
 function dificultadCantidadFallos(dificultad, errores){
+    if (dificultad == 1 && errores == 10){ // A los 10 fallos perdemos.
+        partidasPerdidas ++
+        mensajeDerrota(reiniciarJuego) // Popup de derrota y se restablece la partida o se sale.
+    }
     if (dificultad == 2 && errores == 6){ // A los 6 fallos perdemos.
+        partidasPerdidas ++
         mensajeDerrota(reiniciarJuego) // Popup de derrota y se restablece la partida o se sale.
     }
     if (dificultad == 3 && errores == 8){ // A los 8 fallos perdemos
+        partidasPerdidas ++
         mensajeDerrota(reiniciarJuego) // Popup de derrota y se reinicia la partida o se sale.
     } 
 }
