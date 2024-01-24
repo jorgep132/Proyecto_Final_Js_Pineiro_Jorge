@@ -17,6 +17,18 @@ body {
     align-items: center;
 }
 
+#wrapperPokemon {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    position: relative;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    margin-top: 120px;
+}
+
 /* Se cambia el tamaño para la dificultad facil, ya que tiene 12 cartas. */
 #wrapper.facil {
     height: 100vh;

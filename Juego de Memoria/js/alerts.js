@@ -99,4 +99,10 @@ function mensajeDebElegirTematica (){
         }).showToast();
 }
 
+
+
+
+
+
+
 export {mensajeBienvenida, mensajeDebElegirTematica, mensajeDebeIniciarSesion, mensajeDerrota, mensajeVictoria, mensajeNoRegistrado, mensajeRegistrado, mensajeTematicaRepetida}

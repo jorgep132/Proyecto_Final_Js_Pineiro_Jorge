@@ -2,8 +2,8 @@ import { login } from "../Juego de Memoria/js/usuario.js"
 
 let fallos = 0
 let pokemonAcertados = 0
+let pokemonTotal = 0
 let generacion = 151
-let listPoke = []
 
 const botonJuegoMemoria = document.querySelector('#juegoMemoria')
 botonJuegoMemoria.addEventListener('click', ()=>{
@@ -19,6 +19,12 @@ document.querySelector('#respuesta').addEventListener('keydown', ()=> {
     document.querySelector('#respuesta').value = ''
   }
 
+})
+
+const botonNewGame = document.querySelector('#newGame')
+botonNewGame.addEventListener('click', ()=>{
+  event.preventDefault()
+  location.reload()
 })
 
 
@@ -57,6 +63,9 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
 
   // Función para mostrar el Pokémon actual
   function mostrarPokemon() {
+    const resultados = document.querySelector('#resultados');
+    resultados.innerText = `Aciertos: ${pokemonAcertados}/151
+    Fallos: ${fallos}`;
     document.getElementById('mensaje').innerText = '';
     document.getElementById('imagenPokemon').src = pokemonActual.imagen;
     document.getElementById('respuesta').value = '';
@@ -74,45 +83,60 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
     return null;
   }
 
+function verificarRespuesta() {
+  const respuestaUsuario = document.getElementById('respuesta').value.toLowerCase();
 
+  if (respuestaUsuario === pokemonActual.nombre) {
+    pokemonAcertados++;
+    pokemonTotal++
 
-  // Función para verificar la respuesta del usuario
-  function verificarRespuesta() {
-    const respuestaUsuario = document.getElementById('respuesta').value.toLowerCase();
-    if (respuestaUsuario === pokemonActual.nombre || pokemonActual.nombre.includes("nidoran")) {
-      pokemonAcertados++
-      document.getElementById('mensaje').innerText = '¡Correcto! ¡Ese es el Pokémon!'
-      obtenerPokemon(generacion); // Obtener otro Pokémon después de acertar
-    } else {
-      document.getElementById('mensaje').innerText = 'Incorrecto. ¡Sigue intentando!';
-      fallos ++
-      obtenerPokemon(generacion)
-    }
-
-    listPoke.push(pokemonActual.nombre)
-    
-    const resultados = document.querySelector('#resultados')
-    resultados.innerText = `Pokémon acertados: ${pokemonAcertados}/151
-                        Intentos: ${fallos}`
-    
-    const listaPokemon = document.querySelector('#listaPokemon')
-    listaPokemon.innerText = `${listPoke.join(', ')}`
-    
+  } else {
+    fallos++;
+    pokemonTotal++
   }
 
+
+  console.log(generacion)                      
+  console.log(pokemonTotal)
+      
+  if (pokemonTotal === generacion ) {
+      console.log('fin')
+      document.getElementById('respuesta').disabled = true;
+      resultados.innerText = `Resultados:
+                              Aciertos: ${pokemonAcertados}/151
+                              Fallos: ${fallos}`;
+      if (pokemonAcertados === generacion){
+        document.getElementById('respuesta').disabled = true;
+        resultados.innerText = ` Sos un maestro pokemon
+                              Resultados:
+                              Aciertos: ${pokemonAcertados}/151
+                              Fallos: ${fallos}`;
+      }
+      
+    // Puedes realizar alguna acción adicional aquí, como reiniciar el juego o mostrar un mensaje de finalización.
+  } else {
+    obtenerPokemon(generacion);
+  }
+}
+
+/////// TEST///////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Iniciar el juego al cargar la página
-  window.onload = obtenerPokemon(generacion)
- 
-
-
-
-
-
-
-
-
-
-
+  window.onload = () => obtenerPokemon(generacion);
 
 
 
