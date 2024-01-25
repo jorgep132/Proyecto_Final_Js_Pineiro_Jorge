@@ -129,7 +129,7 @@ botonInfo.addEventListener('click', ()=>{
     event.preventDefault()
     Swal.fire({
         title: "Reglas",
-        html: `<p>El juego consiste en encontrar los pares de cartas, cada vez que nos equivoquemos, sumará uno a la cuenta de fallos. Una vez encontrado todo los pares, ganarás la partida.</p>
+        html: `<p>Primero selecciona una temática para comenzar a jugar. El juego consiste en encontrar los pares de cartas, cada vez que nos equivoquemos, sumará uno a la cuenta de fallos. Una vez encontrado todo los pares, ganarás la partida.</p>
         <p>Nivel 1: Fácil, 12 cartas y 10 intentos.</p>
         <p>Nivel 2: Intermedio, 16 cartas y 6 intentos.</p>
         <p>Nivel 3: Dificil, 20 cartas y 8 intentos.</p>`, // Instructivo de las reglas, objetivo del juego y diferentes niveles de dificultad.

@@ -1,9 +1,26 @@
-import { login } from "../Juego de Memoria/js/usuario.js"
+import { login, usuarioAutenticado } from "../Juego de Memoria/js/usuario.js"
+import { mensajeDebeIniciarSesion } from "../Juego de Memoria/js/alerts.js"
 
 let fallos = 0
 let pokemonAcertados = 0
 let pokemonTotal = 0
 let generacion = 151
+let pokemonListaCorrectos = []
+let PokemonListaIncorrectos = []
+
+const cancion = document.getElementById('cancion');
+const botonMusica = document.getElementById('musica');
+
+cancion.play()
+botonMusica.addEventListener('click', () => {
+  event.preventDefault()
+  if (cancion.paused) {
+    cancion.play();
+  } else {
+    cancion.pause();
+  }
+});
+
 
 const botonJuegoMemoria = document.querySelector('#juegoMemoria')
 botonJuegoMemoria.addEventListener('click', ()=>{
@@ -13,19 +30,52 @@ botonJuegoMemoria.addEventListener('click', ()=>{
 })
 
 
-document.querySelector('#respuesta').addEventListener('keydown', ()=> {
-  if (event.key === 'Enter'){
-    verificarRespuesta()
-    document.querySelector('#respuesta').value = ''
+document.querySelector('#respuesta').addEventListener('keydown', () => {
+  if (!usuarioAutenticado()){ // Verifica que el usuario tenga la sesion iniciada.
+    mensajeDebeIniciarSesion()
+   } else if (event.key === 'Enter') {
+    verificarRespuesta();
+    document.querySelector('#respuesta').value = '';
+    
   }
+}); 
 
-})
+const botonNewGame = document.querySelector('#newGame');
+botonNewGame.addEventListener('click', () => {
+  event.preventDefault();
+  console.log('Generacion ' + generacion);
+  console.log('Pokemon total ' + pokemonTotal);
+  nuevaPartida(() => obtenerPokemon(generacion)); // Pasar obtenerPokemon como devolución de llamada
+});
 
-const botonNewGame = document.querySelector('#newGame')
-botonNewGame.addEventListener('click', ()=>{
+
+
+const botonKanto = document.querySelector('#kanto')
+botonKanto.addEventListener('click', ()=>{
   event.preventDefault()
-  location.reload()
+  generacion = 151
+  console.log('Generacion ' +  generacion)
+  console.log('Pokemon total ' + pokemonTotal)
+  nuevaPartida(() => obtenerPokemon(generacion)); // Asegurar reiniciar y obtenerPokemon después
 })
+
+const botonJohto = document.querySelector('#johto')
+botonJohto.addEventListener('click', ()=>{
+  event.preventDefault()
+  generacion = 100
+  console.log('Generacion ' +  generacion)
+  console.log('Pokemon total ' + pokemonTotal)
+  nuevaPartida(() => obtenerPokemon(generacion)); // Asegurar reiniciar y obtenerPokemon después
+})  
+
+const botonHoenn = document.querySelector('#hoenn')
+botonHoenn.addEventListener('click', ()=>{
+  event.preventDefault()  
+  generacion = 135
+  console.log('Generacion ' +  generacion)
+  console.log('Pokemon total ' + pokemonTotal)
+  nuevaPartida(() => obtenerPokemon(generacion)); // Asegurar reiniciar y obtenerPokemon después
+})  
 
 
 // Utilizamos la Api, pokeapi.
@@ -37,8 +87,23 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
   async function obtenerPokemon(generacion) {
     
     let numeroAleatorio
+    let rangoInicial
+    let rangoFinal
+
+    if (generacion === 151) {
+      rangoInicial = 1;
+      rangoFinal = 151;
+    } else if (generacion === 100) {
+      rangoInicial = 152;
+      rangoFinal = 252;
+    } else if (generacion === 135){
+      rangoInicial = 253
+      rangoFinal = 388
+    }
+
+
     do {
-        numeroAleatorio = Math.floor(Math.random() * generacion) + 1
+        numeroAleatorio = Math.floor(Math.random() *(rangoFinal - rangoInicial + 1)) + rangoInicial
     } while (pokemonAdivinados.has(numeroAleatorio))
 
     const urlPokemon = `${urlBase}${numeroAleatorio}`
@@ -64,7 +129,7 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
   // Función para mostrar el Pokémon actual
   function mostrarPokemon() {
     const resultados = document.querySelector('#resultados');
-    resultados.innerText = `Aciertos: ${pokemonAcertados}/151
+    resultados.innerText = `Aciertos: ${pokemonAcertados}/${generacion}
     Fallos: ${fallos}`;
     document.getElementById('mensaje').innerText = '';
     document.getElementById('imagenPokemon').src = pokemonActual.imagen;
@@ -89,55 +154,83 @@ function verificarRespuesta() {
   if (respuestaUsuario === pokemonActual.nombre) {
     pokemonAcertados++;
     pokemonTotal++
+    const pokemonCorrecto = document.querySelector('#pokemonCorrecto')
+    pokemonListaCorrectos.push({ nombre: pokemonActual.nombre, imagen: pokemonActual.imagen });
+
+    // Construir la cadena de imágenes
+    let listaHtml = '';
+    for (const pokemon of pokemonListaCorrectos) {
+      listaHtml += `<img src="${pokemon.imagen}" alt="${pokemon.nombre}"> ${pokemon.nombre}`;
+    }
+
+    // Asignar la cadena de imágenes al contenido del elemento HTML
+    pokemonCorrecto.innerHTML = listaHtml;
 
   } else {
     fallos++;
     pokemonTotal++
+    const pokemonIncorrecto = document.querySelector('#pokemonIncorrecto')
+    PokemonListaIncorrectos.push({ nombre: pokemonActual.nombre, imagen: pokemonActual.imagen });
+
+    // Construir la cadena de imágenes
+    let listaHtml = '';
+    for (const pokemon of PokemonListaIncorrectos) {
+      listaHtml += `<img src="${pokemon.imagen}" alt="${pokemon.nombre}"> ${pokemon.nombre}`;
+    }
+
+    // Asignar la cadena de imágenes al contenido del elemento HTML
+    pokemonIncorrecto.innerHTML = listaHtml;
   }
 
 
-  console.log(generacion)                      
-  console.log(pokemonTotal)
+  console.log('Generacion ' +  generacion)
+  console.log('Pokemon total ' + pokemonTotal)
       
   if (pokemonTotal === generacion ) {
       console.log('fin')
       document.getElementById('respuesta').disabled = true;
       resultados.innerText = `Resultados:
-                              Aciertos: ${pokemonAcertados}/151
+                              Aciertos: ${pokemonAcertados}/${generacion}
                               Fallos: ${fallos}`;
+
       if (pokemonAcertados === generacion){
         document.getElementById('respuesta').disabled = true;
         resultados.innerText = ` Sos un maestro pokemon
                               Resultados:
-                              Aciertos: ${pokemonAcertados}/151
+                              Aciertos: ${pokemonAcertados}/${generacion}
                               Fallos: ${fallos}`;
       }
-      
-    // Puedes realizar alguna acción adicional aquí, como reiniciar el juego o mostrar un mensaje de finalización.
+
   } else {
     obtenerPokemon(generacion);
   }
 }
 
-/////// TEST///////////
+
+function nuevaPartida(callback) {
+  fallos = 0;
+  pokemonAcertados = 0;
+  pokemonTotal = 0;
+  pokemonAdivinados.clear();
+  pokemonCorrecto.innerHTML = '';
+  pokemonIncorrecto.innerHTML = '';
+
+  // Habilitar el campo de entrada si estaba deshabilitado en el juego anterior
+  document.getElementById('respuesta').disabled = false;
+
+  // Limpiar los resultados mostrados
+  const resultados = document.querySelector('#resultados');
+  resultados.innerText = '';
+
+  // Limpiar la entrada del usuario
+  document.getElementById('respuesta').value = '';
+
+  if (callback && typeof callback === 'function') {
+    callback(); // Llamar a la devolución de llamada proporcionada
+  }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // Iniciar el juego al cargar la página
-  window.onload = () => obtenerPokemon(generacion);
-
-
+window.onload = () => obtenerPokemon(generacion);
 
 login()

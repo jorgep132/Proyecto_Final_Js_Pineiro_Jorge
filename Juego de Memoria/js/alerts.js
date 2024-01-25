@@ -1,11 +1,11 @@
 // Funcion de popup de victoria y reinicio del juego.
 function mensajeVictoria(reiniciarJuego) {
-    var audio = new Audio('assets/Audio/gatitos_win.mp3')
+    let audio = new Audio('assets/Audio/gatitos_win.mp3')
     audio.play()
 
     Swal.fire({
         title: "VICTORIA",
-        imageUrl: "assets/Gif/ganaste.gif",
+        imageUrl: "assets/Gif/happy_cat.gif",
         imageAlt: "Custom GIF",
         showCancelButton: true,
         confirmButtonText: 'Jugar de nuevo',
@@ -22,9 +22,11 @@ function mensajeVictoria(reiniciarJuego) {
 
 // Funcion popup de derrota
 function mensajeDerrota (reiniciarJuego){
+    let audio = new Audio('assets/Audio/cry-banana-cat.mp3')
+    audio.play()
     Swal.fire({
         title: "DERROTA",
-        imageUrl: "assets/Gif/perdiste.gif",
+        imageUrl: "assets/Gif/banana_cat.gif",
         imageAlt: "Custom GIF",
         showCancelButton: true,
         confirmButtonText: 'Jugar de nuevo',
@@ -87,7 +89,7 @@ function mensajeTematicaRepetida (){
 function mensajeDebeIniciarSesion (){
     Toastify({
         text: "Debe iniciar sesion",
-        duration: 440
+        duration: 550
         }).showToast();
 }
 
