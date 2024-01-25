@@ -43,8 +43,6 @@ document.querySelector('#respuesta').addEventListener('keydown', () => {
 const botonNewGame = document.querySelector('#newGame');
 botonNewGame.addEventListener('click', () => {
   event.preventDefault();
-  console.log('Generacion ' + generacion);
-  console.log('Pokemon total ' + pokemonTotal);
   nuevaPartida(() => obtenerPokemon(generacion)); // Pasar obtenerPokemon como devolución de llamada
 });
 
@@ -54,8 +52,6 @@ const botonKanto = document.querySelector('#kanto')
 botonKanto.addEventListener('click', ()=>{
   event.preventDefault()
   generacion = 151
-  console.log('Generacion ' +  generacion)
-  console.log('Pokemon total ' + pokemonTotal)
   nuevaPartida(() => obtenerPokemon(generacion)); // Asegurar reiniciar y obtenerPokemon después
 })
 
@@ -63,8 +59,6 @@ const botonJohto = document.querySelector('#johto')
 botonJohto.addEventListener('click', ()=>{
   event.preventDefault()
   generacion = 100
-  console.log('Generacion ' +  generacion)
-  console.log('Pokemon total ' + pokemonTotal)
   nuevaPartida(() => obtenerPokemon(generacion)); // Asegurar reiniciar y obtenerPokemon después
 })  
 
@@ -72,8 +66,6 @@ const botonHoenn = document.querySelector('#hoenn')
 botonHoenn.addEventListener('click', ()=>{
   event.preventDefault()  
   generacion = 135
-  console.log('Generacion ' +  generacion)
-  console.log('Pokemon total ' + pokemonTotal)
   nuevaPartida(() => obtenerPokemon(generacion)); // Asegurar reiniciar y obtenerPokemon después
 })  
 
@@ -134,9 +126,6 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
     document.getElementById('mensaje').innerText = '';
     document.getElementById('imagenPokemon').src = pokemonActual.imagen;
     document.getElementById('respuesta').value = '';
-
-    pokemonAdivinados.add(pokemonActual.id)
-    
   }
 
   function obtenerPokemonIdDesdeUrl(url) {
@@ -182,12 +171,8 @@ function verificarRespuesta() {
     pokemonIncorrecto.innerHTML = listaHtml;
   }
 
-
-  console.log('Generacion ' +  generacion)
-  console.log('Pokemon total ' + pokemonTotal)
       
   if (pokemonTotal === generacion ) {
-      console.log('fin')
       document.getElementById('respuesta').disabled = true;
       resultados.innerText = `Resultados:
                               Aciertos: ${pokemonAcertados}/${generacion}

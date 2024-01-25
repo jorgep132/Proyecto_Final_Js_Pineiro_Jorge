@@ -1,6 +1,6 @@
 // Funcion de popup de victoria y reinicio del juego.
 function mensajeVictoria(reiniciarJuego) {
-    let audio = new Audio('assets/Audio/gatitos_win.mp3')
+    let audio = new Audio('assets/Audio/Gatitos_Win.mp3')
     audio.play()
 
     Swal.fire({
@@ -22,7 +22,7 @@ function mensajeVictoria(reiniciarJuego) {
 
 // Funcion popup de derrota
 function mensajeDerrota (reiniciarJuego){
-    let audio = new Audio('assets/Audio/cry-banana-cat.mp3')
+    let audio = new Audio('assets/Audio/Cry_Banana.mp3')
     audio.play()
     Swal.fire({
         title: "DERROTA",

@@ -11,22 +11,19 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- Bootstrap JS Bundle (Popper included) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>  
-    <title>Juego de Pokemon</title>
-    <style>
-        img {
-          max-width: 500px;
-          max-height: 500px;
-          margin-bottom: 10px;
-        }
-      </style>
-    <audio id="cancion" src="/Juego de Memoria/assets/Audio/pokemon_battle_theme.mp3" loop></audio>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <title>Quiz</title>
+    <audio id="cancion" src="./assets/audio/Swanky Swing.mp3" loop></audio>
 
 </head>
 
 
 <body>
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Thirteenth navbar example">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,23 +61,58 @@
         </div>
       </nav>
 
-    <div id="wrapperPokemon">
+    <!-- <div id="wrapperPokemon">
       <p id="mensaje"></p>
       <img id="imagenPokemon" alt="Imagen del Pokémon">
       <input type="text" id="respuesta" placeholder="Ingresa el nombre">
       <button type="submit" id="newGame">Nueva partida</button>
       <p class='resultadosPokemon' id="resultados"></p>
-      <p class='resultadosPokemon' >Acertaste:</p>
+      <p class='resultadosPokemon' id="pregunta"></p>
       <p class='resultadosPokemon' id="pokemonCorrecto"></p>
       <p class='resultadosPokemon' >Fallaste:</p>
       <p class='resultadosPokemon' id="pokemonIncorrecto"></p>
     </div>
-    
+     -->
+     <div class="container mt-5">
+      <div class="d-flex justify-content-center row">
+          <div class="col-md-10 col-lg-10">
+              <div class="border">
+                  <div class="question bg-white p-3 border-bottom">
+                      <div class="d-flex flex-row justify-content-between align-items-center mcq">
+                          <h4>MCQ Quiz</h4><span>(5 of 20)</span></div>
+                      </div>
+                  <div class="question bg-white p-3 border-bottom">
+                      <div class="d-flex flex-row align-items-center question-title">
+                          <h3 class="text-danger" id="numeroPregunta">1.</h3>
+                          <h5 class="mt-1 ml-2" id="pregunta"></h5>
+                        </div><div class="ans ml-2">
+                          <label class="radio" id="op1"> <input type="radio" ><span></span>
+                          </label>    
+                        </div><div class="ans ml-2">
+                          <label class="radio" id='op2'> <input type="radio" ><span></span>
+                          </label>    
+                        </div><div class="ans ml-2">
+                          <label class="radio" id="op3"> <input type="radio"> <span></span>
+                          </label>    
+                        </div><div class="ans ml-2">
+                          <label class="radio" id="op4"> <input type="radio"> <span></span>
+                          </label>
+                        </div></div>
+                  <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white"><button class="btn btn-primary border-success align-items-center btn-success" type="button">Siguiente<i class="fa fa-angle-right ml-2"></i></button></div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- <button class="btn btn-primary d-flex align-items-center btn-danger" type="button"><i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;previous</button> -->
 
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script type='module' src="main_juego_pokemon.js"></script>
+    <script type='module' src="main_quiz.js"></script>
+    <script type='module' src="assets/js/preguntas.js"></script>
     <script type='module' src="/Juego de Memoria/js/usuario.js"></script>
     <script type='module' src="/Juego de Memoria/js/alerts.js"></script>
 </body>

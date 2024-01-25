@@ -78,8 +78,17 @@ body {
     font-size: 26px;
 }
 
+.resultadosPokemon {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+}
+
 #partidasRegistro {
     color: rgb(255, 255, 255);
     font-size: 18px;
 }
 
+#numeroPregunta {
+    font-size: 18px;
+    margin-top: 5px;
+  }
