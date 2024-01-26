@@ -101,10 +101,56 @@ function mensajeDebElegirTematica (){
         }).showToast();
 }
 
+function mensajeDerrotaQuiz(correctas, incorrectas) {
+    Swal.fire({
+        title: `Perdiste. \nIncorrectas:${incorrectas}. \nCorrectas:${correctas}`,
+        confirmButtonText: 'Aceptar',
+    }).then((result) => {
+       if (result.isConfirmed) {
+            location.reload()
+        }
+    });
+}
+
+function mensajeVictoriaQuiz(correctas, incorrectas) {
+    Swal.fire({
+        title: `Ganaste. \nCorrectas:${correctas}. \nIncorrectas:${incorrectas}`,
+        confirmButtonText: 'Aceptar',
+    }).then((result) => {
+       if (result.isConfirmed) {
+            location.reload()
+        }
+    });
+}
+
+function mensajeSeleccionaOpcionQuiz(){
+    Toastify({
+        text: `⚠️ Selecciona una opción ⚠️`,
+        duration: 600,
+        style: {
+            background: '#FC1F00',
+          },
+        className: 'toast-login',
+    }).showToast();
+}
 
 
 
 
 
 
-export {mensajeBienvenida, mensajeDebElegirTematica, mensajeDebeIniciarSesion, mensajeDerrota, mensajeVictoria, mensajeNoRegistrado, mensajeRegistrado, mensajeTematicaRepetida}
+export {
+
+    mensajeBienvenida,
+    mensajeDebElegirTematica, 
+    mensajeDebeIniciarSesion, 
+    mensajeDerrota, 
+    mensajeVictoria, 
+    mensajeNoRegistrado, 
+    mensajeRegistrado, 
+    mensajeTematicaRepetida, 
+    mensajeDerrotaQuiz, 
+    mensajeVictoriaQuiz,
+    mensajeSeleccionaOpcionQuiz
+    
+}

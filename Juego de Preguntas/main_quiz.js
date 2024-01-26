@@ -1,4 +1,5 @@
-import { Programacion } from "./assets/js/preguntas.js";
+import { Programacion, Historia} from "./assets/js/preguntas.js"
+import { mensajeDerrotaQuiz, mensajeSeleccionaOpcionQuiz, mensajeVictoriaQuiz } from "../Juego de Memoria/js/alerts.js";
 
 const cancion = document.getElementById('cancion');
 const botonMusica = document.getElementById('musica');
@@ -13,36 +14,81 @@ botonMusica.addEventListener('click', () => {
   }
 });
 
-
+const categoriaProgramacion = document.querySelector('#programacion')
+const categoriaHistoria = document.querySelector('#historia')
 const preguntas = document.querySelector('#pregunta')
 const op1 = document.querySelector('#op1')
 const op2 = document.querySelector('#op2')
 const op3 = document.querySelector('#op3')
 const op4 = document.querySelector('#op4')
+const siguiente = document.querySelector('#siguiente')
+const opcionesRadio = document.querySelectorAll('input[type="radio"]');
+let categoria = Programacion
+let preguntaTotal = 0
+let preguntaActualIndex = 0
+let correctas = 0
+let incorrectas = 0
 
-for (let nuevaPregunta of Programacion){
-
-    console.log(nuevaPregunta.pregunta)
-    console.log(nuevaPregunta.opciones)
-    console.log(nuevaPregunta.respuesta)
-
-    // let responder = prompt(`Pregunta: ${nuevaPregunta.pregunta} \n Opciones: ${nuevaPregunta.opciones}`)
-    // if (responder === nuevaPregunta.respuesta){
-    // alert('Buena')
-    // } else{
-    // alert('Alto malo')
-    // }
-
-    preguntas.innerText = nuevaPregunta.pregunta
-    
-    console.log(nuevaPregunta.opciones[0])
-    
-    op1.innerText = nuevaPregunta.opciones[0]
-    op2.innerText = nuevaPregunta.opciones[1]
-    op3.innerText = nuevaPregunta.opciones[2]
-    op4.innerText = nuevaPregunta.opciones[3]
-
+function mostrarPregunta() {
+    const preguntaActual = categoria[preguntaActualIndex];
+    if (preguntaActual) {
+        preguntas.innerText = preguntaActual.pregunta;
+        op1.innerText = preguntaActual.opciones[0];
+        op2.innerText = preguntaActual.opciones[1];
+        op3.innerText = preguntaActual.opciones[2];
+        op4.innerText = preguntaActual.opciones[3];
+    } else if (incorrectas > correctas) {
+        console.log('Fin')
+        mensajeDerrotaQuiz(correctas, incorrectas)
+    } else{
+      mensajeVictoriaQuiz(correctas, incorrectas)
+    }
+    document.querySelector('#resultadoFinal').innerText = `Correctas: ${correctas}. Incorrectas: ${incorrectas}. Total de preguntas: 5`
+    document.querySelector('#totalPreguntas').innerText = `Respondidas: ${preguntaTotal}/5`
 }
-    
 
 
+categoriaProgramacion.addEventListener('click', ()=>{
+    event.preventDefault()
+    document.querySelector('#categoria').innerText = `Programacion`
+    categoria = Programacion
+    preguntaActualIndex = 0
+    mostrarPregunta()
+})
+
+categoriaHistoria.addEventListener('click', ()=>{
+    event.preventDefault()
+    document.querySelector('#categoria').innerText = `Historia`
+    categoria = Historia
+    preguntaActualIndex = 0
+    mostrarPregunta()
+})
+
+mostrarPregunta()
+
+siguiente.addEventListener('click', () => {
+    event.preventDefault();
+    const opcionSeleccionada = Array.from(opcionesRadio).find(opcion => opcion.checked);
+    if (opcionSeleccionada){
+        verificarRespuesta(categoria[preguntaActualIndex]);
+        preguntaActualIndex++;
+        preguntaTotal++
+        mostrarPregunta();
+    } else {
+        mensajeSeleccionaOpcionQuiz()
+    }
+
+  });   
+
+
+  function verificarRespuesta(nuevaPregunta) {
+    // Iterar sobre los elementos input
+    opcionesRadio.forEach(opcion => {
+      // Verificar si la opción está seleccionada y es la respuesta correcta
+      if (opcion.checked === true && opcion.dataset.respuesta === nuevaPregunta.respuesta) {    
+        correctas++
+      } else if (opcion.checked === true) {
+        incorrectas++
+      }
+    });
+  }
