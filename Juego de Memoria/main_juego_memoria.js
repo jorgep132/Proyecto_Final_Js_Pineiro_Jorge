@@ -36,11 +36,17 @@ const botonDificultad = document.querySelector('#dificultad')
 const botonInfo = document.querySelector('#info')
 const botonPokeadivinanza = document.querySelector('#pokeadivinanza')
 
-botonPokeadivinanza.addEventListener('click', ()=>{
+document.querySelector('#pokeadivinanza').addEventListener('click', ()=>{
     event.preventDefault()
     window.location.href = '../Juego de Pokemon/index_juego_pokemon.html'
     
 })
+document.querySelector('#quiz').addEventListener('click', ()=>{
+    event.preventDefault()
+    window.location.href = '../Juego de Preguntas/index_quiz.html'
+    
+})
+  
 
 // Bloque de evento de Botones
 // Evento de botonYugi para elegir la tematica de Yu-gi-oh! al hacer click.

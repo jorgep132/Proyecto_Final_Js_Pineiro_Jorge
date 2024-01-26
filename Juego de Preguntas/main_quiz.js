@@ -1,5 +1,6 @@
 import { Programacion, Historia} from "./assets/js/preguntas.js"
-import { mensajeDerrotaQuiz, mensajeSeleccionaOpcionQuiz, mensajeVictoriaQuiz } from "../Juego de Memoria/js/alerts.js";
+import { mensajeDerrotaQuiz, mensajeSeleccionaOpcionQuiz, mensajeVictoriaQuiz } from "../Juego de Memoria/js/alerts.js"
+import { login, usuarioAutenticado } from "../Juego de Memoria/js/usuario.js";
 
 const cancion = document.getElementById('cancion');
 const botonMusica = document.getElementById('musica');
@@ -13,6 +14,17 @@ botonMusica.addEventListener('click', () => {
     cancion.pause();
   }
 });
+
+document.querySelector('#juegoMemoria').addEventListener('click', ()=>{
+  event.preventDefault()
+  window.location.href = '../Juego de Memoria/index_juego_memoria.html'
+  
+})
+
+
+
+
+
 
 const categoriaProgramacion = document.querySelector('#programacion')
 const categoriaHistoria = document.querySelector('#historia')
@@ -28,6 +40,11 @@ let preguntaTotal = 0
 let preguntaActualIndex = 0
 let correctas = 0
 let incorrectas = 0
+
+
+
+
+
 
 function mostrarPregunta() {
     const preguntaActual = categoria[preguntaActualIndex];
@@ -78,7 +95,7 @@ siguiente.addEventListener('click', () => {
         mensajeSeleccionaOpcionQuiz()
     }
 
-  });   
+});   
 
 
   function verificarRespuesta(nuevaPregunta) {
@@ -92,3 +109,7 @@ siguiente.addEventListener('click', () => {
       }
     });
   }
+
+
+
+  login()

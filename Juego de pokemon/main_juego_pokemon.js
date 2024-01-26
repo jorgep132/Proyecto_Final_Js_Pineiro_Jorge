@@ -22,12 +22,17 @@ botonMusica.addEventListener('click', () => {
 });
 
 
-const botonJuegoMemoria = document.querySelector('#juegoMemoria')
-botonJuegoMemoria.addEventListener('click', ()=>{
+document.querySelector('#juegoMemoria').addEventListener('click', ()=>{
   event.preventDefault()
   window.location.href = '../Juego de Memoria/index_juego_memoria.html'
   
 })
+document.querySelector('#quiz').addEventListener('click', ()=>{
+  event.preventDefault()
+  window.location.href = '../Juego de Preguntas/index_quiz.html'
+  
+})
+
 
 
 document.querySelector('#respuesta').addEventListener('keydown', () => {
