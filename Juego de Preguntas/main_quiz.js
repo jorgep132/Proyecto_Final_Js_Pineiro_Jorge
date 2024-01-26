@@ -1,4 +1,4 @@
-import { Programacion, Historia} from "./assets/js/preguntas.js"
+import { Programacion, Historia, Geografia} from "./assets/js/preguntas.js"
 import { mensajeDerrotaQuiz, mensajeSeleccionaOpcionQuiz, mensajeVictoriaQuiz } from "../Juego de Memoria/js/alerts.js"
 import { login, usuarioAutenticado } from "../Juego de Memoria/js/usuario.js";
 
@@ -18,16 +18,16 @@ botonMusica.addEventListener('click', () => {
 document.querySelector('#juegoMemoria').addEventListener('click', ()=>{
   event.preventDefault()
   window.location.href = '../Juego de Memoria/index_juego_memoria.html'
-  
 })
 
-
-
-
-
+document.querySelector('#pokeadivinanza').addEventListener('click', ()=>{
+  event.preventDefault()
+  window.location.href = '../Juego de Pokemon/index_juego_pokemon.html'
+})
 
 const categoriaProgramacion = document.querySelector('#programacion')
 const categoriaHistoria = document.querySelector('#historia')
+const categoriaGeografia = document.querySelector('#geografia')
 const preguntas = document.querySelector('#pregunta')
 const op1 = document.querySelector('#op1')
 const op2 = document.querySelector('#op2')
@@ -41,14 +41,27 @@ let preguntaActualIndex = 0
 let correctas = 0
 let incorrectas = 0
 
+document.querySelector('#categoria').innerText = `Programacion`
 
+function mezclarPreguntas(preguntaAleatoria) {
+  for (let i = preguntaAleatoria.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [preguntaAleatoria[i], preguntaAleatoria[j]] = [preguntaAleatoria[j], preguntaAleatoria[i]];
+  }
+  return preguntaAleatoria;
+}
 
-
-
-
+// SE REPITEN PREGUNTAS - CORREGIR
 function mostrarPregunta() {
-    const preguntaActual = categoria[preguntaActualIndex];
-    if (preguntaActual) {
+    opcionesRadio.forEach(opcion => {
+      opcion.checked = false;
+    });
+
+    const preguntasMezcladas = mezclarPreguntas(categoria);
+
+    const preguntaActual = preguntasMezcladas[preguntaActualIndex];
+
+    if (preguntaActual && preguntaTotal < 5) {
         preguntas.innerText = preguntaActual.pregunta;
         op1.innerText = preguntaActual.opciones[0];
         op2.innerText = preguntaActual.opciones[1];
@@ -79,6 +92,14 @@ categoriaHistoria.addEventListener('click', ()=>{
     categoria = Historia
     preguntaActualIndex = 0
     mostrarPregunta()
+})
+
+categoriaGeografia.addEventListener('click', ()=>{
+  event.preventDefault()
+  document.querySelector('#categoria').innerText = `Geografía`
+  categoria = Geografia
+  preguntaActualIndex = 0
+  mostrarPregunta()
 })
 
 mostrarPregunta()

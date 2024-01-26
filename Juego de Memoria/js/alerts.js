@@ -103,7 +103,7 @@ function mensajeDebElegirTematica (){
 
 function mensajeDerrotaQuiz(correctas, incorrectas) {
     Swal.fire({
-        title: `Perdiste. \nIncorrectas:${incorrectas}. \nCorrectas:${correctas}`,
+        title: `Perdiste. \nIncorrectas: ${incorrectas} \nCorrectas: ${correctas}`,
         confirmButtonText: 'Aceptar',
     }).then((result) => {
        if (result.isConfirmed) {
@@ -114,7 +114,7 @@ function mensajeDerrotaQuiz(correctas, incorrectas) {
 
 function mensajeVictoriaQuiz(correctas, incorrectas) {
     Swal.fire({
-        title: `Ganaste. \nCorrectas:${correctas}. \nIncorrectas:${incorrectas}`,
+        title: `Ganaste. \nCorrectas: ${correctas} \nIncorrectas: ${incorrectas}`,
         confirmButtonText: 'Aceptar',
     }).then((result) => {
        if (result.isConfirmed) {

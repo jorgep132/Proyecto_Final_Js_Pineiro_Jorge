@@ -5,8 +5,6 @@ let fallos = 0
 let pokemonAcertados = 0
 let pokemonTotal = 0
 let generacion = 151
-let pokemonListaCorrectos = []
-let PokemonListaIncorrectos = []
 
 const cancion = document.getElementById('cancion');
 const botonMusica = document.getElementById('musica');
@@ -27,12 +25,12 @@ document.querySelector('#juegoMemoria').addEventListener('click', ()=>{
   window.location.href = '../Juego de Memoria/index_juego_memoria.html'
   
 })
+
 document.querySelector('#quiz').addEventListener('click', ()=>{
   event.preventDefault()
   window.location.href = '../Juego de Preguntas/index_quiz.html'
   
 })
-
 
 
 document.querySelector('#respuesta').addEventListener('keydown', () => {
@@ -50,7 +48,6 @@ botonNewGame.addEventListener('click', () => {
   event.preventDefault();
   nuevaPartida(() => obtenerPokemon(generacion)); // Pasar obtenerPokemon como devolución de llamada
 });
-
 
 
 const botonKanto = document.querySelector('#kanto')
@@ -92,16 +89,18 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
       rangoFinal = 151;
     } else if (generacion === 100) {
       rangoInicial = 152;
-      rangoFinal = 252;
+      rangoFinal = 251;
     } else if (generacion === 135){
-      rangoInicial = 253
-      rangoFinal = 388
+      rangoInicial = 252
+      rangoFinal = 386
     }
 
 
     do {
-        numeroAleatorio = Math.floor(Math.random() *(rangoFinal - rangoInicial + 1)) + rangoInicial
+        numeroAleatorio = Math.floor(Math.random() * (rangoFinal - rangoInicial + 1)) + rangoInicial
     } while (pokemonAdivinados.has(numeroAleatorio))
+
+    pokemonAdivinados.add(numeroAleatorio);
 
     const urlPokemon = `${urlBase}${numeroAleatorio}`
     
@@ -133,47 +132,19 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
     document.getElementById('respuesta').value = '';
   }
 
-  function obtenerPokemonIdDesdeUrl(url) {
-    // La URL tiene el formato 'https://pokeapi.co/api/v2/pokemon/{id}/'
-    const idMatch = url.match(/\/(\d+)\/$/);
-    if (idMatch && idMatch[1]) {
-      return parseInt(idMatch[1], 10);
-    }
-    return null;
-  }
-
 function verificarRespuesta() {
   const respuestaUsuario = document.getElementById('respuesta').value.toLowerCase();
 
   if (respuestaUsuario === pokemonActual.nombre) {
     pokemonAcertados++;
     pokemonTotal++
-    const pokemonCorrecto = document.querySelector('#pokemonCorrecto')
-    pokemonListaCorrectos.push({ nombre: pokemonActual.nombre, imagen: pokemonActual.imagen });
-
-    // Construir la cadena de imágenes
-    let listaHtml = '';
-    for (const pokemon of pokemonListaCorrectos) {
-      listaHtml += `<img src="${pokemon.imagen}" alt="${pokemon.nombre}"> ${pokemon.nombre}`;
-    }
-
-    // Asignar la cadena de imágenes al contenido del elemento HTML
-    pokemonCorrecto.innerHTML = listaHtml;
 
   } else {
     fallos++;
     pokemonTotal++
-    const pokemonIncorrecto = document.querySelector('#pokemonIncorrecto')
-    PokemonListaIncorrectos.push({ nombre: pokemonActual.nombre, imagen: pokemonActual.imagen });
+    document.querySelector('#pokemonIncorrectoNombre').innerText = pokemonActual.nombre
+    document.querySelector('#pokemonIncorrectoImagen').src = pokemonActual.imagen
 
-    // Construir la cadena de imágenes
-    let listaHtml = '';
-    for (const pokemon of PokemonListaIncorrectos) {
-      listaHtml += `<img src="${pokemon.imagen}" alt="${pokemon.nombre}"> ${pokemon.nombre}`;
-    }
-
-    // Asignar la cadena de imágenes al contenido del elemento HTML
-    pokemonIncorrecto.innerHTML = listaHtml;
   }
 
       
@@ -202,8 +173,8 @@ function nuevaPartida(callback) {
   pokemonAcertados = 0;
   pokemonTotal = 0;
   pokemonAdivinados.clear();
-  pokemonCorrecto.innerHTML = '';
-  pokemonIncorrecto.innerHTML = '';
+  document.querySelector('#pokemonIncorrectoNombre').innerText = ''
+  document.querySelector('#pokemonIncorrectoImagen').src = ''
 
   // Habilitar el campo de entrada si estaba deshabilitado en el juego anterior
   document.getElementById('respuesta').disabled = false;
