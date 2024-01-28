@@ -48,16 +48,14 @@ Secciones de la página:
 ## Herramientas y tecnologías utilizadas
 ***
 
-Visual Studio Code (https://code.visualstudio.com/)
-HTML5
-JavaScript
-SweetAlert2
-Toastify.js
-JQuery
-CSS
-Bootstrap
-Font Awesome
-PokeApi: https://pokeapi.co/
-
-
+- [Visual Studio Code](https://code.visualstudio.com/)
+- HTML5
+- JavaScript
+- SweetAlert2
+- Toastify.js
+- JQuery
+- CSS
+- Bootstrap
+- Font Awesome
+- PokeApi: [https://pokeapi.co/](https://pokeapi.co/)
 
