@@ -102,6 +102,8 @@ function mensajeDebElegirTematica (){
         }).showToast();
 }
 
+
+// Funcion popup de aviso para el quizz. Aparece cuando el jugador pierde.
 function mensajeDerrotaQuiz(correctas, incorrectas) {
     Swal.fire({
         title: `Perdiste. \nIncorrectas: ${incorrectas} \nCorrectas: ${correctas}`,
@@ -113,6 +115,7 @@ function mensajeDerrotaQuiz(correctas, incorrectas) {
     });
 }
 
+// Funcion popup de aviso para el quizz. Aparece cuando el jugador gana.
 function mensajeVictoriaQuiz(correctas, incorrectas) {
     Swal.fire({
         title: `Ganaste. \nCorrectas: ${correctas} \nIncorrectas: ${incorrectas}`,
@@ -124,6 +127,8 @@ function mensajeVictoriaQuiz(correctas, incorrectas) {
     });
 }
 
+
+// Funcion popup que avisa al usuario que elija una opcion antes de elegir 'siguiente' sin ninguna opcion maracada.
 function mensajeSeleccionaOpcionQuiz(){
     Toastify({
         text: `⚠️ Selecciona una opción ⚠️`,
@@ -134,10 +139,6 @@ function mensajeSeleccionaOpcionQuiz(){
         className: 'toast-login',
     }).showToast();
 }
-
-
-
-
 
 
 export {

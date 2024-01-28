@@ -1,30 +1,8 @@
 import { Programacion, Historia, Geografia} from "./assets/js/preguntas.js"
-import { mensajeDerrotaQuiz, mensajeSeleccionaOpcionQuiz, mensajeVictoriaQuiz } from "../Juego de Memoria/js/alerts.js"
+import { mensajeDerrotaQuiz, mensajeSeleccionaOpcionQuiz, mensajeVictoriaQuiz, mensajeDebeIniciarSesion } from "../Juego de Memoria/js/alerts.js"
 import { login, usuarioAutenticado } from "../Juego de Memoria/js/usuario.js";
 
-const cancion = document.getElementById('cancion');
-const botonMusica = document.getElementById('musica');
-
-cancion.play()
-botonMusica.addEventListener('click', () => {
-  event.preventDefault()
-  if (cancion.paused) {
-    cancion.play();
-  } else {
-    cancion.pause();
-  }
-});
-
-document.querySelector('#juegoMemoria').addEventListener('click', ()=>{
-  event.preventDefault()
-  window.location.href = '../Juego de Memoria/index_juego_memoria.html'
-})
-
-document.querySelector('#pokeadivinanza').addEventListener('click', ()=>{
-  event.preventDefault()
-  window.location.href = '../Juego de Pokemon/index_juego_pokemon.html'
-})
-
+// Variables globales //
 const categoriaProgramacion = document.querySelector('#programacion')
 const categoriaHistoria = document.querySelector('#historia')
 const categoriaGeografia = document.querySelector('#geografia')
@@ -40,43 +18,64 @@ let preguntaTotal = 0
 let preguntaActualIndex = 0
 let correctas = 0
 let incorrectas = 0
+// Fin del bloque de variables globales //
 
+
+
+
+// Bloque para cancion de la web // 
+const cancion = document.getElementById('cancion');
+const botonMusica = document.getElementById('musica');
+
+cancion.play()
+botonMusica.addEventListener('click', () => {
+  event.preventDefault()
+  if (cancion.paused) {
+    cancion.play();
+  } else {
+    cancion.pause();
+  }
+});
+// Fin del bloque para la cancion // 
+
+
+// Bloque de eventos de botones //
+document.querySelector('#juegoMemoria').addEventListener('click', ()=>{
+  event.preventDefault()
+  window.location.href = '../Juego de Memoria/index_juego_memoria.html'
+})
+
+document.querySelector('#pokeadivinanza').addEventListener('click', ()=>{
+  event.preventDefault()
+  window.location.href = '../Juego de Pokemon/index_juego_pokemon.html'
+})
+// Fin del bloque de botones //
+
+// Mostramos el titulo de la categoria por defecto, que es programacion.
 document.querySelector('#categoria').innerText = `Programacion`
 
-function mezclarPreguntas(preguntaAleatoria) {
-  for (let i = preguntaAleatoria.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [preguntaAleatoria[i], preguntaAleatoria[j]] = [preguntaAleatoria[j], preguntaAleatoria[i]];
-  }
-  return preguntaAleatoria;
-}
-
-// SE REPITEN PREGUNTAS - CORREGIR
 function mostrarPregunta() {
-    opcionesRadio.forEach(opcion => {
-      opcion.checked = false;
-    });
+  opcionesRadio.forEach(opcion => {
+    opcion.checked = false;
+  });
 
-    const preguntasMezcladas = mezclarPreguntas(categoria);
+  if (preguntaActualIndex < categoria.length && preguntaTotal < 7) {
+    const preguntaActual = categoria[preguntaActualIndex];
 
-    const preguntaActual = preguntasMezcladas[preguntaActualIndex];
+    preguntas.innerText = preguntaActual.pregunta;
+    op1.innerText = preguntaActual.opciones[0];
+    op2.innerText = preguntaActual.opciones[1];
+    op3.innerText = preguntaActual.opciones[2];
+    op4.innerText = preguntaActual.opciones[3];
 
-    if (preguntaActual && preguntaTotal < 5) {
-      
-        preguntas.innerText = preguntaActual.pregunta;
-        op1.innerText = preguntaActual.opciones[0];
-        op2.innerText = preguntaActual.opciones[1];
-        op3.innerText = preguntaActual.opciones[2];
-        op4.innerText = preguntaActual.opciones[3];
-
-    } else if (incorrectas > correctas) {
-        console.log('Fin')
-        mensajeDerrotaQuiz(correctas, incorrectas)
-    } else{
-      mensajeVictoriaQuiz(correctas, incorrectas)
-    }
-    document.querySelector('#resultadoFinal').innerText = `Correctas: ${correctas}. Incorrectas: ${incorrectas}. Total de preguntas: 5`
-    document.querySelector('#totalPreguntas').innerText = `Respondidas: ${preguntaTotal}/5`
+  } else if (incorrectas > correctas) {
+    console.log('Fin')
+    mensajeDerrotaQuiz(correctas, incorrectas)
+  } else {
+    mensajeVictoriaQuiz(correctas, incorrectas)
+  }
+  document.querySelector('#resultadoFinal').innerText = `Correctas: ${correctas}. Incorrectas: ${incorrectas}. Total de preguntas: 7`
+  document.querySelector('#totalPreguntas').innerText = `Respondidas: ${preguntaTotal}/7`
 }
 
 
@@ -108,18 +107,24 @@ mostrarPregunta()
 
 siguiente.addEventListener('click', () => {
     event.preventDefault();
+    if (!usuarioAutenticado()){ // Verifica que el usuario tenga la sesion iniciada.
+      mensajeDebeIniciarSesion()
+    } else {
+
     const opcionSeleccionada = Array.from(opcionesRadio).find(opcion => opcion.checked);
     if (opcionSeleccionada){
         verificarRespuesta(categoria[preguntaActualIndex]);
-        preguntaActualIndex++;
         preguntaTotal++
+        preguntaActualIndex++
         mostrarPregunta();
     } else {
         mensajeSeleccionaOpcionQuiz()
     }
 
-});   
+    }
+    
 
+});   
 
   function verificarRespuesta(nuevaPregunta) {
     // Iterar sobre los elementos input
