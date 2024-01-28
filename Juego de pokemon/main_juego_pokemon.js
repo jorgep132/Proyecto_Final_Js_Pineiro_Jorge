@@ -6,11 +6,11 @@ let fallos = 0
 let pokemonAcertados = 0
 let pokemonTotal = 0
 let generacion = 151
-let pokemonActual = {};
+let pokemonActual = {}
 let pokemonAdivinados = new Set()
-const cancion = document.getElementById('cancion');
-const botonMusica = document.getElementById('musica');
-const urlBase = 'https://pokeapi.co/api/v2/pokemon/'; // Url con la Api de pokemon
+const cancion = document.getElementById('cancion')
+const botonMusica = document.getElementById('musica')
+const urlBase = 'https://pokeapi.co/api/v2/pokemon/' // Url con la Api de pokemon
 // Fin del bloque variables globales //
 
 // Bloque para que se reproduzca, o se pause, la musica de la pagina //
@@ -22,7 +22,7 @@ botonMusica.addEventListener('click', () => {
   } else {
     cancion.pause();
   }
-});
+})
 // Fin del bloque // 
 
 // Evento de botones //
@@ -207,6 +207,6 @@ function nuevaPartida(callback) {
   }
 }
 
-window.onload = () => obtenerPokemon(generacion);
+window.onload = () => obtenerPokemon(generacion)
 
 login() // Llamamos a la funcion de login, dado que hay acciones en el juego que no van a estar habilitadas si el usuario no esta logueado.

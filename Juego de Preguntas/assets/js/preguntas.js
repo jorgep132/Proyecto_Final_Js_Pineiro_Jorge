@@ -1,3 +1,4 @@
+
 class Pregunta {
     constructor(pregunta, opciones, respuesta){
         this.pregunta = pregunta
@@ -6,7 +7,7 @@ class Pregunta {
     }
 }
 
-
+// Preguntas que se ven a usar en el juego de quiz // 
 const Programacion = [
     new Pregunta('¿Cuál es la palabra clave para declarar una variable en JavaScript?', ['a) var', 'b) int', 'c) variable', 'd) let'], 'A'),
     new Pregunta('¿Qué función se utiliza para imprimir en la consola en JavaScript?', ['a) console.log()', 'b) print()', 'c) log.console()', 'd) display()'], 'A'),
