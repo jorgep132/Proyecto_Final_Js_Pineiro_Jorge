@@ -33,7 +33,8 @@ function mensajeDerrota (reiniciarJuego){
         cancelButtonText: 'Salir',
     }).then((result) => {
        if (result.isConfirmed) {
-            reiniciarJuego();  // Llama a la función para reiniciar el juego
+            reiniciarJuego()
+            audio.pause();  // Llama a la función para reiniciar el juego
         } else {
             location.reload() // De no querer seguir jugando , se reinicia la pagina.
         }

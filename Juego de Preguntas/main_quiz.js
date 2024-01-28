@@ -62,11 +62,13 @@ function mostrarPregunta() {
     const preguntaActual = preguntasMezcladas[preguntaActualIndex];
 
     if (preguntaActual && preguntaTotal < 5) {
+      
         preguntas.innerText = preguntaActual.pregunta;
         op1.innerText = preguntaActual.opciones[0];
         op2.innerText = preguntaActual.opciones[1];
         op3.innerText = preguntaActual.opciones[2];
         op4.innerText = preguntaActual.opciones[3];
+
     } else if (incorrectas > correctas) {
         console.log('Fin')
         mensajeDerrotaQuiz(correctas, incorrectas)

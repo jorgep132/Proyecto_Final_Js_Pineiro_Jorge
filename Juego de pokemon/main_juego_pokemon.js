@@ -114,7 +114,6 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
         imagen: datos.sprites.front_default,
         id: id
       };
-
       mostrarPokemon();
 
     } catch (error) {
@@ -123,14 +122,14 @@ const urlBase = 'https://pokeapi.co/api/v2/pokemon/';
   }
 
   // Función para mostrar el Pokémon actual
-  function mostrarPokemon() {
-    const resultados = document.querySelector('#resultados');
-    resultados.innerText = `Aciertos: ${pokemonAcertados}/${generacion}
-    Fallos: ${fallos}`;
-    document.getElementById('mensaje').innerText = '';
-    document.getElementById('imagenPokemon').src = pokemonActual.imagen;
-    document.getElementById('respuesta').value = '';
-  }
+function mostrarPokemon() {
+  const resultados = document.querySelector('#resultados');
+  resultados.innerText = `Aciertos: ${pokemonAcertados}/${generacion}
+  Fallos: ${fallos}`;
+  document.getElementById('mensaje').innerText = '';
+  document.getElementById('imagenPokemon').src = pokemonActual.imagen;
+  document.getElementById('respuesta').value = '';
+}
 
 function verificarRespuesta() {
   const respuestaUsuario = document.getElementById('respuesta').value.toLowerCase();
@@ -163,7 +162,8 @@ function verificarRespuesta() {
       }
 
   } else {
-    obtenerPokemon(generacion);
+    obtenerPokemon(generacion)
+    iniciarContadorYObtenerPokemon(generacion);
   }
 }
 
@@ -190,6 +190,14 @@ function nuevaPartida(callback) {
     callback(); // Llamar a la devolución de llamada proporcionada
   }
 }
+
+
+
+
+
+
+
+
 
 
 window.onload = () => obtenerPokemon(generacion);
