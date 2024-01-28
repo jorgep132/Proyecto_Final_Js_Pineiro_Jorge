@@ -3,8 +3,9 @@ Proyecto Final - JavaScript - Piñeiro Jorge - CODERHOUSE 49815
 Diseño básico de tres páginas webs, donde cada una de ellas consta con un juego interactivo diferente.
 ***
 
-### Información general
+## Información general
 En este proyecto final vas a encontrar tres juegos diferentes. Juego de memoria. Juego de Pokemon. Juego de preguntas (quiz).
+***
 
 ## Juego de Memoria
 Descripción: Clásico de juego de Memoria, también conocido como memorama, donde el jugador tiene una dterminada cantidad de cartas, distribuidas en pares.
